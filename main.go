@@ -8,6 +8,8 @@ import (
 	"github.com/pchchv/golog"
 )
 
+var testURL string
+
 func init() {
 	// Load values from .env into the system
 	if err := env.Load(); err != nil {
