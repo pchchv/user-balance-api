@@ -1,9 +1,5 @@
-FROM golang:1.19-alpine
+FROM golang:1.20-alpine
 
 WORKDIR /app
 
 COPY . /app
-
-EXPOSE 8080
-
-RUN go run .
