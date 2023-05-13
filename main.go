@@ -4,9 +4,16 @@ import (
 	"log"
 	"os"
 
+	"github.com/google/uuid"
 	"github.com/pchchv/env"
 	"github.com/pchchv/golog"
 )
+
+type User struct {
+	Id      uuid.UUID
+	Name    string
+	Balance float64
+}
 
 var testURL string
 
