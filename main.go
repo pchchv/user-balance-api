@@ -52,6 +52,12 @@ func withdraw(id uuid.UUID, amount float64) (User, error) {
 	return u, nil
 }
 
+func getBalance(id uuid.UUID) (User, error) {
+	u := User{}
+	// TODO: Retrieve data from the database.
+	return u, nil
+}
+
 func main() {
 	server()
 	db()

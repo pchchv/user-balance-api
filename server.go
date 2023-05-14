@@ -53,10 +53,28 @@ func handleWithdraw(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
+func handleBalance(c echo.Context) error {
+	var request struct {
+		UserID uuid.UUID `json:"user_id"`
+	}
+
+	if err := c.Bind(&request); err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	user, err := getBalance(request.UserID)
+	if err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, user)
+}
+
 // The declaration of all routes comes from it.
 func routes(e *echo.Echo) {
 	e.GET("/", handlePing)
 	e.GET("/ping", handlePing)
+	e.GET("/users/balance", handleBalance)
 	e.PATCH("/users/deposit", handleDeposit)
 	e.PATCH("/users/withdraw", handleWithdraw)
 }
