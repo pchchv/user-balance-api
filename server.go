@@ -38,7 +38,7 @@ func handleDeposit(c echo.Context) error {
 func routes(e *echo.Echo) {
 	e.GET("/", handlePing)
 	e.GET("/ping", handlePing)
-	e.GET("/users/deposit", handleDeposit)
+	e.PATCH("/users/deposit", handleDeposit)
 }
 
 func server() {
