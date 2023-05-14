@@ -9,14 +9,14 @@ import (
 )
 
 // Checks that the server is up and running
-func pingHandler(c echo.Context) error {
+func handlerPing(c echo.Context) error {
 	message := "User balance API. Version 0.0.1"
 	return c.String(http.StatusOK, message)
 }
 
 // The declaration of all routes comes from it.
 func routes(e *echo.Echo) {
-	e.GET("/ping", pingHandler)
+	e.GET("/ping", handlerPing)
 }
 
 func server() {
