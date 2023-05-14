@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"log"
 	"os"
 
 	"github.com/google/uuid"
 	"github.com/pchchv/env"
 	"github.com/pchchv/golog"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -52,10 +55,14 @@ func withdraw(id uuid.UUID, amount float64) (User, error) {
 	return u, nil
 }
 
-func getBalance(id uuid.UUID) (User, error) {
-	u := User{}
-	// TODO: Retrieve data from the database.
-	return u, nil
+func getBalance(id uuid.UUID) (user User, err error) {
+	res := usersCollection.FindOne(context.TODO(), bson.M{"id": id})
+	err = res.Decode(user)
+	if err != nil {
+		return user, errors.New("User not found")
+	}
+
+	return
 }
 
 func main() {
