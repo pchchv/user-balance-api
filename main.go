@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"errors"
-	"log"
 	"os"
 
 	"github.com/google/uuid"
@@ -23,16 +22,16 @@ var (
 	usersCollection *mongo.Collection
 )
 
+// init loadы values from .env into the system.
 func init() {
-	// Load values from .env into the system
 	if err := env.Load(); err != nil {
-		log.Panic("No .env file found")
+		golog.Panic("No .env file found")
 	}
 }
 
+// getEnvValue retrieves values from the environment (.env) file.
+// Outputs a panic message if the value is missing.
 func getEnvValue(v string) string {
-	// Getting a value
-	// Outputs a panic if the value is missing
 	value, exist := os.LookupEnv(v)
 	if !exist {
 		golog.Panic("Value %v does not exist", v)

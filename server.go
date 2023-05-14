@@ -53,6 +53,7 @@ func handleWithdraw(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
+// handleBalance gets the user's balance.
 func handleBalance(c echo.Context) error {
 	var request struct {
 		UserID uuid.UUID `json:"user_id"`
