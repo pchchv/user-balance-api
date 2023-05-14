@@ -2,12 +2,25 @@ package main
 
 import (
 	"context"
+	"errors"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/pchchv/golog"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+func getUserFromDB(id uuid.UUID) (user User, err error) {
+	res := usersCollection.FindOne(context.TODO(), bson.M{"id": id})
+	err = res.Decode(user)
+	if err != nil {
+		return user, errors.New("User not found")
+	}
+
+	return user, err
+}
 
 func db() {
 	serverAPIOptions := options.ServerAPI(options.ServerAPIVersion1)
