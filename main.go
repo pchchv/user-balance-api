@@ -10,12 +10,13 @@ import (
 )
 
 type User struct {
-	Id      uuid.UUID
-	Name    string
-	Balance float64
+	Id      uuid.UUID `json:"id"`
+	Balance float64   `json:"balance"`
 }
 
-var testURL string
+var (
+	testURL string
+)
 
 func init() {
 	// Load values from .env into the system
