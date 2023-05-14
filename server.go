@@ -9,8 +9,8 @@ import (
 	"github.com/pchchv/golog"
 )
 
-// Checks that the server is up and running
-func handlerPing(c echo.Context) error {
+// handlePing checks that the server is up and running
+func handlePing(c echo.Context) error {
 	message := "User balance API. Version 0.0.1"
 	return c.String(http.StatusOK, message)
 }
@@ -36,7 +36,8 @@ func handleDeposit(c echo.Context) error {
 
 // The declaration of all routes comes from it.
 func routes(e *echo.Echo) {
-	e.GET("/ping", handlerPing)
+	e.GET("/", handlePing)
+	e.GET("/ping", handlePing)
 	e.GET("/users/deposit", handleDeposit)
 }
 
