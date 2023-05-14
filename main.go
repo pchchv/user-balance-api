@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/pchchv/env"
 	"github.com/pchchv/golog"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type User struct {
@@ -15,7 +16,8 @@ type User struct {
 }
 
 var (
-	testURL string
+	testURL         string
+	usersCollection *mongo.Collection
 )
 
 func init() {
@@ -52,4 +54,5 @@ func withdraw(id uuid.UUID, amount float64) (User, error) {
 
 func main() {
 	server()
+	db()
 }
