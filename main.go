@@ -43,6 +43,13 @@ func deposit(id uuid.UUID, amount float64) (User, error) {
 	return u, nil
 }
 
+func withdraw(id uuid.UUID, amount float64) (User, error) {
+	u := User{}
+	// TODO: Retrieve data from the database.
+	// TODO: Update balance
+	return u, nil
+}
+
 func main() {
 	server()
 }
