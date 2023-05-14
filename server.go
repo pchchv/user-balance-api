@@ -71,6 +71,36 @@ func handleBalance(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
+// handleTransfer transfers funds between users.
+func handleTransfer(c echo.Context) error {
+	var (
+		request struct {
+			FromUserID uuid.UUID `json:"from_user_id"`
+			ToUserID   uuid.UUID `json:"to_user_id"`
+			Amount     float64   `json:"amount"`
+		}
+
+		users struct {
+			FromUser User
+			ToUser   User
+		}
+	)
+
+	if err := c.Bind(&request); err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	fromUser, toUser, err := transfer(request.FromUserID, request.ToUserID, request.Amount)
+	if err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	users.FromUser = fromUser
+	users.ToUser = toUser
+
+	return c.JSON(http.StatusOK, users)
+}
+
 // The declaration of all routes comes from it.
 func routes(e *echo.Echo) {
 	e.GET("/", handlePing)
@@ -78,6 +108,7 @@ func routes(e *echo.Echo) {
 	e.GET("/users/balance", handleBalance)
 	e.PATCH("/users/deposit", handleDeposit)
 	e.PATCH("/users/withdraw", handleWithdraw)
+	e.PATCH("/users/transfer", handleTransfer)
 }
 
 func server() {

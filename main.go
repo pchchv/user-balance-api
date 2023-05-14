@@ -43,15 +43,21 @@ func getEnvValue(v string) string {
 func deposit(id uuid.UUID, amount float64) (User, error) {
 	u := User{}
 	// TODO: Retrieve data from the database.
-	// TODO: Update balance
+	// TODO: Update balance.
 	return u, nil
 }
 
 func withdraw(id uuid.UUID, amount float64) (User, error) {
 	u := User{}
 	// TODO: Retrieve data from the database.
-	// TODO: Update balance
+	// TODO: Update balance.
 	return u, nil
+}
+
+func transfer(fromUserID uuid.UUID, toUserID uuid.UUID, amount float64) (fromUser User, toUser User, err error) {
+	// TODO: Retrieve data from the database.
+	// TODO: Update balance.
+	return
 }
 
 func getBalance(id uuid.UUID) (user User, err error) {
