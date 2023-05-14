@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/pchchv/golog"
@@ -14,9 +15,29 @@ func handlerPing(c echo.Context) error {
 	return c.String(http.StatusOK, message)
 }
 
+// handleDeposit deposits funds to the user's balance
+func handleDeposit(c echo.Context) error {
+	var request struct {
+		UserID uuid.UUID `json:"user_id"`
+		Amount float64   `json:"amount"`
+	}
+
+	if err := c.Bind(&request); err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	user, err := deposit(request.UserID, request.Amount)
+	if err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, user)
+}
+
 // The declaration of all routes comes from it.
 func routes(e *echo.Echo) {
 	e.GET("/ping", handlerPing)
+	e.GET("/users/deposit", handleDeposit)
 }
 
 func server() {

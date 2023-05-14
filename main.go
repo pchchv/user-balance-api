@@ -36,6 +36,13 @@ func getEnvValue(v string) string {
 	return value
 }
 
+func deposit(id uuid.UUID, amount float64) (User, error) {
+	u := User{}
+	// TODO: Retrieve data from the database.
+	// TODO: Update balance
+	return u, nil
+}
+
 func main() {
 	server()
 }
