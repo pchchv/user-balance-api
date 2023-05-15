@@ -12,6 +12,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+func depositToDB(user User) error {
+	filter := bson.D{{Key: "_id", Value: user.Id}}
+	update := bson.D{{Key: "balance", Value: user.Balance}}
+
+	_, err := usersCollection.UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func getUserFromDB(id uuid.UUID) (user User, err error) {
 	res := usersCollection.FindOne(context.TODO(), bson.M{"id": id})
 	err = res.Decode(user)
