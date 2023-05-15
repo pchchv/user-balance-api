@@ -49,6 +49,20 @@ func insertUserToDB(user User) error {
 	return nil
 }
 
+func deleteUserFromDB(id uuid.UUID) (user User, err error) {
+	user, err = getUserFromDB(id)
+	if err != nil {
+		return user, errors.New("User not found")
+	}
+
+	_, err = usersCollection.DeleteOne(context.TODO(), bson.M{"id": id})
+	if err != nil {
+		return user, fmt.Errorf("Deletion error: %e", err)
+	}
+
+	return user, nil
+}
+
 func db() {
 	serverAPIOptions := options.ServerAPI(options.ServerAPIVersion1)
 	clientOptions := options.Client().
