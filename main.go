@@ -88,6 +88,12 @@ func getBalance(id uuid.UUID) (user User, err error) {
 	return getUserFromDB(id)
 }
 
+func createUser(id uuid.UUID, amount float64) (User, error) {
+	u := User{}
+	// TODO: Create user in db.
+	return u, nil
+}
+
 func main() {
 	server()
 	db()

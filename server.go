@@ -101,11 +101,31 @@ func handleTransfer(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
+// handleCreate creates a new user.
+func handleCreate(c echo.Context) error {
+	var request struct {
+		UserID uuid.UUID `json:"user_id"`
+		Amount float64   `json:"amount"`
+	}
+
+	if err := c.Bind(&request); err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	user, err := createUser(request.UserID, request.Amount)
+	if err != nil {
+		return c.String(http.StatusUnprocessableEntity, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, user)
+}
+
 // The declaration of all routes comes from it.
 func routes(e *echo.Echo) {
 	e.GET("/", handlePing)
 	e.GET("/ping", handlePing)
 	e.GET("/users/balance", handleBalance)
+	e.POST("/users/create", handleCreate)
 	e.PATCH("/users/deposit", handleDeposit)
 	e.PATCH("/users/withdraw", handleWithdraw)
 	e.PATCH("/users/transfer", handleTransfer)
