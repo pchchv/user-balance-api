@@ -101,6 +101,12 @@ func createUser(id uuid.UUID, amount float64) (User, error) {
 	return user, nil
 }
 
+func deleteUser(id uuid.UUID) (User, error) {
+	u := User{}
+	// TODO: Implement a deletion user from db
+	return u, nil
+}
+
 func main() {
 	server()
 	db()
