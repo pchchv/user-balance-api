@@ -71,8 +71,16 @@ func withdraw(id uuid.UUID, amount float64) (User, error) {
 }
 
 func transfer(fromUserID uuid.UUID, toUserID uuid.UUID, amount float64) (fromUser User, toUser User, err error) {
-	// TODO: Retrieve data from the database.
-	// TODO: Update balance.
+	fromUser, err = withdraw(fromUserID, amount)
+	if err != nil {
+		return
+	}
+
+	toUser, err = deposit(toUserID, amount)
+	if err != nil {
+		return
+	}
+
 	return
 }
 
