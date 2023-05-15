@@ -89,9 +89,17 @@ func getBalance(id uuid.UUID) (user User, err error) {
 }
 
 func createUser(id uuid.UUID, amount float64) (User, error) {
-	u := User{}
-	// TODO: Create user in db.
-	return u, nil
+	var user = User{
+		Id:      id,
+		Balance: amount,
+	}
+
+	err := insertUserToDB(user)
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 }
 
 func main() {
