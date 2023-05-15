@@ -109,3 +109,16 @@ go test .
 }
 ```
 #
+
+```
+"DELETE" /user — Delete user
+
+    example: 
+        "DELETE" :8080/
+```
+```json
+{
+	"id" : "ec6761fa-4b02-4e93-a213-8fa96eb44d15"
+}
+```
+#
