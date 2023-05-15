@@ -1,14 +1,12 @@
 package main
 
 import (
-	"context"
-	"errors"
+	"fmt"
 	"os"
 
 	"github.com/google/uuid"
 	"github.com/pchchv/env"
 	"github.com/pchchv/golog"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -41,10 +39,19 @@ func getEnvValue(v string) string {
 }
 
 func deposit(id uuid.UUID, amount float64) (User, error) {
-	u := User{}
-	// TODO: Retrieve data from the database.
-	// TODO: Update balance.
-	return u, nil
+	user, err := getUserFromDB(id)
+	if err != nil {
+		return user, err
+	}
+
+	user.Balance += amount
+
+	err = depositToDB(user)
+	if err != nil {
+		return user, fmt.Errorf("error when updating data: %e", err)
+	}
+
+	return user, nil
 }
 
 func withdraw(id uuid.UUID, amount float64) (User, error) {
