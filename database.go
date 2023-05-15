@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -18,7 +19,7 @@ func depositToDB(user User) error {
 
 	_, err := usersCollection.UpdateOne(context.TODO(), filter, update)
 	if err != nil {
-		return err
+		return fmt.Errorf("Error when updating data: %e", err)
 	}
 
 	return nil
@@ -37,12 +38,12 @@ func getUserFromDB(id uuid.UUID) (user User, err error) {
 func insertUserToDB(user User) error {
 	u, err := bson.Marshal(user)
 	if err != nil {
-		return errors.New("error when creating a user")
+		return errors.New("Error when creating a user")
 	}
 
 	_, err = usersCollection.InsertOne(context.TODO(), u)
 	if err != nil {
-		return errors.New("error when creating a user")
+		return errors.New("Error when creating a user")
 	}
 
 	return nil

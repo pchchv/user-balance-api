@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/google/uuid"
@@ -48,7 +47,7 @@ func deposit(id uuid.UUID, amount float64) (User, error) {
 
 	err = depositToDB(user)
 	if err != nil {
-		return user, fmt.Errorf("error when updating data: %e", err)
+		return user, err
 	}
 
 	return user, nil
@@ -64,7 +63,7 @@ func withdraw(id uuid.UUID, amount float64) (User, error) {
 
 	err = depositToDB(user)
 	if err != nil {
-		return user, fmt.Errorf("error when updating data: %e", err)
+		return user, err
 	}
 
 	return user, nil

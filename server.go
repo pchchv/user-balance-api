@@ -74,29 +74,26 @@ func handleBalance(c echo.Context) error {
 // handleTransfer transfers funds between users.
 func handleTransfer(c echo.Context) error {
 	var (
+		err     error
 		request struct {
 			FromUserID uuid.UUID `json:"from_user_id"`
 			ToUserID   uuid.UUID `json:"to_user_id"`
 			Amount     float64   `json:"amount"`
 		}
-
 		users struct {
 			FromUser User
 			ToUser   User
 		}
 	)
 
-	if err := c.Bind(&request); err != nil {
+	if err = c.Bind(&request); err != nil {
 		return c.String(http.StatusUnprocessableEntity, err.Error())
 	}
 
-	fromUser, toUser, err := transfer(request.FromUserID, request.ToUserID, request.Amount)
+	users.FromUser, users.ToUser, err = transfer(request.FromUserID, request.ToUserID, request.Amount)
 	if err != nil {
 		return c.String(http.StatusUnprocessableEntity, err.Error())
 	}
-
-	users.FromUser = fromUser
-	users.ToUser = toUser
 
 	return c.JSON(http.StatusOK, users)
 }
