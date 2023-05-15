@@ -34,6 +34,20 @@ func getUserFromDB(id uuid.UUID) (user User, err error) {
 	return user, err
 }
 
+func insertUserToDB(user User) error {
+	u, err := bson.Marshal(user)
+	if err != nil {
+		return errors.New("error when creating a user")
+	}
+
+	_, err = usersCollection.InsertOne(context.TODO(), u)
+	if err != nil {
+		return errors.New("error when creating a user")
+	}
+
+	return nil
+}
+
 func db() {
 	serverAPIOptions := options.ServerAPI(options.ServerAPIVersion1)
 	clientOptions := options.Client().
