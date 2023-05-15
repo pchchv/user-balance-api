@@ -61,13 +61,7 @@ func transfer(fromUserID uuid.UUID, toUserID uuid.UUID, amount float64) (fromUse
 }
 
 func getBalance(id uuid.UUID) (user User, err error) {
-	res := usersCollection.FindOne(context.TODO(), bson.M{"id": id})
-	err = res.Decode(user)
-	if err != nil {
-		return user, errors.New("User not found")
-	}
-
-	return
+	return getUserFromDB(id)
 }
 
 func main() {
