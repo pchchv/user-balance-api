@@ -30,13 +30,16 @@ go test .
     example: 
         "GET" :8080/
 ```
+
 #
+
 ```
 "GET" /ping — Checking the server connection
 
     example: 
         "GET" :8080/ping
 ```
+
 #
 
 ```
@@ -50,6 +53,7 @@ go test .
     "user_id" : "ec6761fa-4b02-4e93-a213-8fa96eb44d15"
 }
 ```
+
 #
 
 ```
@@ -67,6 +71,16 @@ go test .
 ```
 
 #
+
+```
+"POST" /users/create/id — Create a new user and its id.
+
+    example: 
+        "POST" :8080/users/create/id
+```
+
+#
+
 ```
 "PATCH" /users/deposit — Depositing funds to the user's balance
 
@@ -79,6 +93,7 @@ go test .
     "amount" : "1000"
 }
 ```
+
 #
 
 ```
@@ -93,6 +108,7 @@ go test .
     "amount" : "1000"
 }
 ```
+
 #
 
 ```
@@ -104,10 +120,11 @@ go test .
 ```json
 {
 	"from_user_id" : "ec6761fa-4b02-4e93-a213-8fa96eb44d15",
-	"to_user_id" : "ec6741fa-4b02-4e03-a303-0fa96eb15d15",
+	"to_user_id" : "ec6741yt-4b32-4a03-a303-0ie904b15d13",
     "amount" : "1000"
 }
 ```
+
 #
 
 ```
