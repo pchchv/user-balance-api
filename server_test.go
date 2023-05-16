@@ -12,10 +12,6 @@ import (
 	vegeta "github.com/tsenart/vegeta/lib"
 )
 
-func Test(t *testing.T) {
-	testURL = "http://" + getEnvValue("HOST") + ":" + getEnvValue("PORT")
-}
-
 func TestServerPing(t *testing.T) {
 	res, err := http.Get(testURL + "/ping")
 	if err != nil {
