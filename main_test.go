@@ -33,3 +33,14 @@ func TestGetBalance(t *testing.T) {
 		t.Fatal(errors.New("Error when receiving the user's balance, wrong balanceю"))
 	}
 }
+
+func TestDeleteUser(t *testing.T) {
+	user, err := deleteUser(testID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if user.Balance != 0 {
+		t.Fatal(errors.New("Error when deleting a user. Incorrect balance was returned."))
+	}
+}
