@@ -30,6 +30,6 @@ func TestGetBalance(t *testing.T) {
 	}
 
 	if user.Balance != 0 {
-		t.Fatal(errors.New("Error when creating a user, incorrect balance."))
+		t.Fatal(errors.New("Error when receiving the user's balance, wrong balanceю"))
 	}
 }
