@@ -34,6 +34,24 @@ func TestGetBalance(t *testing.T) {
 	}
 }
 
+func TestDeposit(t *testing.T) {
+	var testAmount = 9.99
+
+	user, err := getBalance(testID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	resUser, err := deposit(testID, testAmount)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if user.Balance+testAmount != resUser.Balance {
+		t.Errorf("Error when topping up the balance. Expected: %v, Exist: %v", user.Balance+testAmount, resUser.Balance)
+	}
+}
+
 func TestDeleteUser(t *testing.T) {
 	user, err := deleteUser(testID)
 	if err != nil {
