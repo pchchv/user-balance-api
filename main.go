@@ -15,6 +15,7 @@ type User struct {
 }
 
 var (
+	testID          uuid.UUID
 	testURL         string
 	usersCollection *mongo.Collection
 )
