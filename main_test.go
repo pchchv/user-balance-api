@@ -22,3 +22,14 @@ func TestCreateUser(t *testing.T) {
 		t.Fatal(errors.New("Error when creating a user, incorrect balance."))
 	}
 }
+
+func TestGetBalance(t *testing.T) {
+	user, err := getBalance(testID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if user.Balance != 0 {
+		t.Fatal(errors.New("Error when creating a user, incorrect balance."))
+	}
+}
