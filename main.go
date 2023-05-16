@@ -98,7 +98,7 @@ func createUser(id uuid.UUID, amount float64) (User, error) {
 	return user, nil
 }
 
-func getBalance(id uuid.UUID) (user User, err error) {
+func getBalance(id uuid.UUID) (User, error) {
 	return getUserFromDB(id)
 }
 
