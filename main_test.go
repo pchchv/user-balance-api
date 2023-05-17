@@ -23,17 +23,6 @@ func TestCreateUser(t *testing.T) {
 	}
 }
 
-func TestGetBalance(t *testing.T) {
-	user, err := getBalance(testID)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if user.Balance != 0 {
-		t.Fatal(errors.New("Error when receiving the user's balance, wrong balanceю"))
-	}
-}
-
 func TestDeposit(t *testing.T) {
 	var testAmount = 9.99
 
@@ -48,7 +37,7 @@ func TestDeposit(t *testing.T) {
 	}
 
 	if user.Balance+testAmount != resUser.Balance {
-		t.Errorf("Error when topping up the balance. Expected: %v, Exist: %v", user.Balance+testAmount, resUser.Balance)
+		t.Errorf("Error when depositing the balance. Expected: %v, Exist: %v", user.Balance+testAmount, resUser.Balance)
 	}
 }
 
@@ -67,6 +56,17 @@ func TestWithdraw(t *testing.T) {
 
 	if user.Balance-testAmount != resUser.Balance {
 		t.Errorf("Error when withdrawing funds from the balance. Expected: %v, Existing: %v", user.Balance+testAmount, resUser.Balance)
+	}
+}
+
+func TestGetBalance(t *testing.T) {
+	user, err := getBalance(testID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if user.Balance != 5.0 {
+		t.Fatal(errors.New("Error when receiving the user's balance, wrong balanceю"))
 	}
 }
 
